@@ -38,15 +38,17 @@ classdef StockData_analyzer
             curs = fetch(curs);
         end
         
-        function [Mean,Variance] = analyzeSet(curs,col,numel)
+        function [Mean,Variance,Range,Stdev] = analyzeSet(curs,col,numel)
         %function analyzeSet retrieves data from the connection based on SQL instructions
         %to obtain a set of Data, and then returns some quantifiers of the
         %data - Mean, Variance
             dataSet = cell2mat(curs.Data(1:numel,col));
             Mean = mean(dataSet);
             Variance = var(dataSet);
-            
+            Range = range(dataSet);
+            Stdev = sqrtm(Variance);
         end
+        
         
         function scatter(curs,col1,col2,numel)
         %function scatter Creates a scatter plot of elements from one
